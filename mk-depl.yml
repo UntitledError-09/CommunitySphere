@@ -1,0 +1,26 @@
+# mk-depl.yml
+# minikube deployment configuration .yml file
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: community-sphere
+spec:
+  replicas: 1  # Initial number of replicas
+  selector:
+    matchLabels:
+      app: community-sphere
+  template:
+    metadata:
+      labels:
+        app: community-sphere
+    spec:
+      containers:
+        - name: community-sphere-container
+          image: docker.io/untitlederror09/community-sphere-image
+          resources:
+            requests:
+              cpu: 100m
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
